@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10131d">
+  <title>Endless Maze</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./levels.js" defer></script>
+  <script src="./game.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <header class="intro">
+      <div class="eyebrow"><span class="eyebrow-dot"></span> PROTÓTIPO · LABIRINTO SIMBÓLICO</div>
+      <h1>Endless <span>Maze</span></h1>
+      <p class="lead">Atravesse cada trecho. Evite as paredes. Veja até onde você chega.</p>
+    </header>
+
+    <section class="game-card" aria-label="Jogo Endless Maze">
+      <div class="board-column">
+        <div class="board-heading">
+          <div>
+            <p class="section-label">SESSÃO ATUAL</p>
+            <h2 id="segment-label">Preparando o labirinto…</h2>
+          </div>
+          <span class="route-badge" id="route-label">I <span aria-hidden="true">→</span> O</span>
+        </div>
+        <div class="board-frame">
+          <div class="maze-grid" id="maze" role="grid" aria-label="Labirinto 12 por 12"></div>
+        </div>
+        <p class="board-hint"><span class="legend-dot player-legend"></span> Você <span class="legend-dot exit-legend"></span> Saída <span class="legend-wall"></span> Parede</p>
+      </div>
+
+      <aside class="side-panel">
+        <div class="stats" aria-label="Desempenho da sessão">
+          <div class="stat">
+            <span class="stat-label">PROFUNDIDADE</span>
+            <strong id="depth">0</strong>
+            <span class="stat-note">trechos concluídos</span>
+          </div>
+          <div class="stat-row">
+            <div class="stat compact-stat">
+              <span class="stat-label">SEGMENTO</span>
+              <strong id="segment-number">1 / 10</strong>
+            </div>
+            <div class="stat compact-stat">
+              <span class="stat-label">TEMPO</span>
+              <strong id="timer">00:00</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-box" id="status" role="status" aria-live="polite">
+          Use as setas, WASD ou os controles na tela.
+        </div>
+
+        <div class="controls-wrap">
+          <p class="section-label">CONTROLES</p>
+          <div class="d-pad" aria-label="Controles de movimento">
+            <button class="move-button up" data-direction="up" aria-label="Mover para cima">▲</button>
+            <button class="move-button left" data-direction="left" aria-label="Mover para a esquerda">◀</button>
+            <span class="move-button center" aria-hidden="true">●</span>
+            <button class="move-button right" data-direction="right" aria-label="Mover para a direita">▶</button>
+            <button class="move-button down" data-direction="down" aria-label="Mover para baixo">▼</button>
+          </div>
+          <button class="restart-button" id="restart">Reiniciar sessão</button>
+        </div>
+
+        <p class="score-note">Pontuação: maior profundidade vence; o menor tempo desempata.</p>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <span>MAPA 12 × 12</span>
+      <span class="symbol-legend"><code>#</code> parede <code>.</code> caminho <code>I</code> entrada <code>O</code> saída</span>
+      <span>10 trechos salvos + geração contínua</span>
+    </footer>
+  </main>
+
+  <dialog class="game-over-modal" id="game-over-modal" aria-labelledby="game-over-title" aria-describedby="game-over-message">
+    <div class="modal-panel">
+      <span class="modal-mark" aria-hidden="true">!</span>
+      <p class="section-label">SESSÃO ENCERRADA</p>
+      <h2 id="game-over-title">Você bateu em uma parede</h2>
+      <p class="modal-message" id="game-over-message"></p>
+      <button class="modal-restart-button" id="modal-restart" type="button">Reiniciar sessão</button>
+    </div>
+  </dialog>
+</body>
+</html>
