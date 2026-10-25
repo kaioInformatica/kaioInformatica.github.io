@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Pac-Man</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<button id="settingsButton" type="button" aria-label="Configurar labirinto" aria-controls="settingsModal">⚙</button>
+
+<button id="scorePanelButton" type="button" aria-label="Abrir recordes" aria-controls="scorePanel">←</button>
+
+<aside id="scorePanel" class="score-panel" aria-label="Histórico de pontuações">
+    <h2>Recordes</h2>
+    <label for="scoreDimension">Labirinto</label>
+    <select id="scoreDimension"></select>
+    <ol id="scoreHistory" class="score-history"></ol>
+</aside>
+
+<div id="settingsModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <section class="modal-content">
+        <button id="closeSettingsButton" class="close-button" type="button" aria-label="Fechar configurações">×</button>
+        <h1 id="settingsTitle">Configurar labirinto</h1>
+        <p>Escolha as dimensões do próximo labirinto.</p>
+
+        <fieldset class="origin-options">
+            <legend>Origem do labirinto</legend>
+            <label class="origin-option">
+                <input type="radio" name="mazeOrigin" value="mathematical">
+                <span>
+                    <strong>Matemática</strong>
+                    <small>Gera o labirinto com as funções atuais.</small>
+                </span>
+            </label>
+            <label class="origin-option">
+                <input type="radio" name="mazeOrigin" value="ai" checked>
+                <span>
+                    <strong>IA</strong>
+                    <small>Gera um labirinto a partir de uma instrução sua.</small>
+                </span>
+            </label>
+        </fieldset>
+
+        <label for="rowsSlider">Linhas: <output id="rowsValue">9</output></label>
+        <input id="rowsSlider" type="range" min="9" max="19" step="2" value="9">
+
+        <label for="columnsSlider">Colunas: <output id="columnsValue">21</output></label>
+        <input id="columnsSlider" type="range" min="15" max="31" step="2" value="21">
+
+        <div id="aiOptions" class="ai-options hidden">
+            <label for="aiPrompt">Prompt para a IA</label>
+            <textarea id="aiPrompt" rows="14">
+Generate a {{lines}}X{{columns}} symbolic maze for a Pac-Man-inspired game.
+
+Use only these symbols:
+# = wall
+. = walkable floor
+S = exactly one player start
+C = collectible
+
+Rules:
+1. Return exactly {{lines}} lines.
+2. Every line must contain exactly {{columns}} columns.
+3. The outer border must contain only # symbols.
+4. Include exactly one S.
+5. Include at least ten C symbols.
+6. Every C must be reachable from S.
+7. Do not include explanations, Markdown, headings, code fences, or additional text.
+8. Output only the symbolic map.
+</textarea>
+            <p class="ai-hint">Há cenários locais pré-gerados para as dimensões disponíveis; no tamanho padrão 21×9, há 12 opções. O jogo seleciona uma delas aleatoriamente para o tamanho escolhido.</p>
+        </div>
+
+        <button id="applySettingsButton" class="apply-button" type="button">Criar labirinto</button>
+    </section>
+</div>
+
+<main id="gameShell" class="game-shell">
+    <div id="score">
+        <span>Pontos: <span id="pontos">0</span></span>
+        <span>Tempo: <span id="tempo">00:00:0</span></span>
+    </div>
+
+    <div id="boardArea" class="board-area">
+        <div id="game">
+            <img id="pacman" src="assets/pacman.gif" alt="Pac-Man">
+        </div>
+    </div>
+
+    <nav id="touchControls" class="touch-controls" aria-label="Controles de direção">
+        <button class="direction-button" type="button" data-direction="up" aria-label="Mover para cima">▲</button>
+        <button class="direction-button" type="button" data-direction="left" aria-label="Mover para a esquerda">◀</button>
+        <button class="direction-button" type="button" data-direction="right" aria-label="Mover para a direita">▶</button>
+        <button class="direction-button" type="button" data-direction="down" aria-label="Mover para baixo">▼</button>
+    </nav>
+</main>
+
+<script src="labirintos.js"></script>
+<script src="pontuacoes.js"></script>
+<script src="pacman-controller.js"></script>
+<script src="script.js"></script>
+
+</body>
+
+</html>
